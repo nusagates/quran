@@ -12,7 +12,8 @@
         }
 
         img {
-            height: 100%
+            height: 100%;
+            width: 100%
         }
     </style>
 </head>
@@ -20,7 +21,7 @@
 <div id="app">
     <v-app>
         <v-main>
-            <v-container @touchstart="touchStart" fluid id="quran">
+            <v-container @touchstart="touchStart" fluid>
                 <div style="text-align: left">
                     <v-navigation-drawer
                             v-model="drawer"
