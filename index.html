@@ -74,21 +74,22 @@
                     </v-navigation-drawer>
                 </div>
                 <v-img class="mb-3" width="width" :lazy-src="'pages/Quran_Page_'+page+'.fbk'" :src="'pages/Quran_Page_'+page+'.fbk'"/>
+                <div class="mb-5">&nbsp;</div>
+                <v-bottom-navigation fixed v-model="nav">
+                    <v-btn @click="menu" value="drawer">
+                        <v-icon>mdi-menu</v-icon>
+                    </v-btn>
 
+                    <v-btn :disabled="page>='674'" @click="prev" value="prev">
+                        <v-icon>mdi-chevron-double-left</v-icon>
+                    </v-btn>
+
+                    <v-btn :disabled="page=='0'" @click="next" value="next">
+                        <v-icon>mdi-chevron-double-right</v-icon>
+                    </v-btn>
+                </v-bottom-navigation>
             </v-container>
-            <v-bottom-navigation  v-model="nav">
-                <v-btn @click="menu" value="drawer">
-                    <v-icon>mdi-menu</v-icon>
-                </v-btn>
 
-                <v-btn :disabled="page>='674'" @click="prev" value="prev">
-                    <v-icon>mdi-chevron-double-left</v-icon>
-                </v-btn>
-
-                <v-btn :disabled="page=='0'" @click="next" value="next">
-                    <v-icon>mdi-chevron-double-right</v-icon>
-                </v-btn>
-            </v-bottom-navigation>
         </v-main>
     </v-app>
 </div>
