@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <style>
+        #quran {
+            height: 100vh;
+            text-align: center;
+        }
+
+        img {
+            height: 100%
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <v-app>
+        <v-main>
+            <v-container @touchstart="touchStart" fluid id="quran">
+                <div style="text-align: left">
+                    <v-navigation-drawer
+                            v-model="drawer"
+                            temporary
+                            app>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title class="text-h6">
+                                    Al-Qur'anul Karim
+                                </v-list-item-title>
+                                <v-list-item-subtitle>
+                                    Rosm Utsmani
+                                </v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+
+                        <v-divider></v-divider>
+                        <v-list
+                                nav
+                                dense
+                        >
+                            <v-list-item-group
+                                    active-class="deep-green --text text--accent-4"
+                            >
+                                <div v-for="(item, index) in navigation" :key="index">
+                                    <v-list-item v-if="!item.subLinks">
+                                        <v-list-item-title v-text="item.name"></v-list-item-title>
+                                    </v-list-item>
+                                    <v-list-group
+                                            v-else
+                                            :key="item.page"
+                                            no-action
+                                            :value="false"
+                                    >
+                                        <template v-slot:activator>
+                                            <v-list-item-title v-text="item.name"></v-list-item-title>
+                                        </template>
+
+                                        <v-list-item
+                                                v-for="sublink in item.subLinks"
+                                                :key="sublink.name"
+                                                @click="page=parseInt(sublink.page)+3"
+                                        >
+                                            <v-list-item-title>
+                                                <span v-text="sublink.name"/>
+                                            </v-list-item-title>
+                                        </v-list-item>
+
+                                    </v-list-group>
+                                </div>
+                            </v-list-item-group>
+                        </v-list>
+                    </v-navigation-drawer>
+                </div>
+                <img @click="drawer=!drawer" :src="'/pages/Quran_Page_'+page+'.fbk'"/>
+                <v-bottom-navigation v-model="nav">
+                    <v-btn @click="menu" value="drawer">
+                        <v-icon>mdi-menu</v-icon>
+                    </v-btn>
+
+                    <v-btn :disabled="page>='674'" @click="prev" value="prev">
+                        <v-icon>mdi-chevron-double-left</v-icon>
+                    </v-btn>
+
+                    <v-btn :disabled="page=='0'" @click="next" value="next">
+                        <v-icon>mdi-chevron-double-right</v-icon>
+                    </v-btn>
+                </v-bottom-navigation>
+            </v-container>
+        </v-main>
+    </v-app>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data() {
+            return {
+                page: '0',
+                drawer: true,
+                group: null,
+                nav: null,
+                navigation:
+                    [
+                        {
+                            page: '/', name: 'Surat',
+                            subLinks: [
+                                {page: '0', name: 'Al Fatihah'},
+                                {page: '1', name: 'Al Baqoroh'},
+                                {page: '49', name: 'Ali Imran'},
+                                {page: '76', name: 'An Nisa'},
+                                {page: '105', name: 'Al Maidah'},
+                                {page: '127', name: 'Al Anam'},
+                                {page: '150', name: "'Al A'raf'"},
+                                {page: '176', name: 'Al Anfal'},
+                                {page: '186', name: 'At Taubat'},
+                                {page: '207', name: 'Yunus'},
+                                {page: '220', name: 'Hud'},
+                                {page: '234', name: 'Yusuf'},
+                                {page: '248', name: "'Ar Ra'd'"},
+                                {page: '254', name: 'Ibrahim'},
+                                {page: '261', name: 'Al Hijr'},
+                                {page: '266', name: 'An Nahl'},
+                                {page: '281', name: 'Al Isra'},
+                                {page: '292', name: 'Al Kahfi'},
+                                {page: '304', name: 'Maryam'},
+                                {page: '311', name: 'Thaha'},
+                                {page: '321', name: 'Al Anbiya'},
+                                {page: '331', name: 'Al Haj'},
+                                {page: '341', name: "'Al Mu'minun'"},
+                                {page: '349', name: 'An Nur'},
+                                {page: '358', name: 'Al Furqan'},
+                                {page: '366', name: 'As Syuaro'},
+                                {page: '376', name: 'An Naml'},
+                                {page: '384', name: 'Al Qosos'},
+                                {page: '395', name: 'Al Ankabut'},
+
+                                {page: '403', name: 'Ar Rum'},
+                                {page: '410', name: 'Luqman'},
+                                {page: '414', name: 'As Sajdah'},
+                                {page: '417', name: 'Al Ahzab'},
+                                {page: '427', name: 'Saba'},
+                                {page: '433', name: 'Fatir'},
+                                {page: '439', name: 'Yasin'},
+                                {page: '445', name: 'As Shofat'},
+                                {page: '452', name: 'As Shod'},
+                                {page: '457', name: 'Az Zumar'},
+                                {page: '466', name: 'Ghofir'},
+                                {page: '476', name: 'Fushilat'},
+                                {page: '482', name: 'As Syura'},
+                                {page: '488', name: 'Az Zuhruf'},
+                                {page: '495', name: 'Ad Dukhon'},
+                                {page: '498', name: 'Al Jatsiyah'},
+                                {page: '501', name: 'Al Ahqof'},
+                                {page: '506', name: 'Muhammad'},
+                                {page: '510', name: 'Al Fath'},
+                                {page: '514', name: 'Al Hujrot'},
+                                {page: '517', name: 'Qof'},
+                                {page: '519', name: 'Ad Dzariyat'},
+                                {page: '522', name: 'At Thur'},
+                                {page: '525', name: 'An Najm'},
+                                {page: '527', name: 'Al Qomar'},
+                                {page: '530', name: 'Ar Rohman'},
+                                {page: '533', name: 'Al Waqiah'},
+                                {page: '536', name: 'Al Hadid'},
+                                {page: '541', name: 'Al Mujadilah'},
+
+                                {page: '544', name: 'Al Hasyr'},
+                                {page: '547', name: 'Al Mumtahinah'},
+                                {page: '550', name: 'As Shof'},
+                                {page: '552', name: 'Al Jumuah'},
+                                {page: '553', name: 'Al Munafiqun'},
+                                {page: '555', name: 'At Taghobun'},
+                                {page: '557', name: 'At Tholaq'},
+                                {page: '559', name: 'At Tahrim'},
+                                {page: '561', name: 'Al Mulk'},
+                                {page: '563', name: 'Al Qolam'},
+                                {page: '565', name: 'Al Haqoh'},
+                                {page: '567', name: "'Al Ma'arij'"},
+                                {page: '569', name: 'Nuh'},
+                                {page: '571', name: 'Al Jin'},
+                                {page: '573', name: 'Al Muzammil'},
+                                {page: '574', name: 'Al Mudatsir'},
+                                {page: '576', name: 'Al Qiyamah'},
+                                {page: '577', name: 'Al Insan'},
+                                {page: '579', name: 'Al Mursalat'},
+                                {page: '581', name: 'An Naba'},
+                                {page: '582', name: 'An Naziat'},
+                                {page: '584', name: 'Abasa'},
+                                {page: '585', name: 'At Takwir'},
+                                {page: '586', name: 'Al Infithar'},
+                                {page: '586', name: 'Al Mutaffifin'},
+                                {page: '588', name: 'Al Insyiqoq'},
+                                {page: '589', name: 'Al Buruj'},
+                                {page: '590', name: 'At Thoriq'},
+
+                                {page: '590', name: "'Al A'la'"},
+                                {page: '591', name: 'Al Ghosyiyah'},
+                                {page: '592', name: 'Al Fajr'},
+                                {page: '593', name: 'Al Balad'},
+                                {page: '594', name: 'As Syams'},
+                                {page: '594', name: 'Al Lail'},
+                                {page: '595', name: 'Ad Dzuha'},
+                                {page: '595', name: 'Al Insyirah'},
+                                {page: '596', name: 'At Tin'},
+                                {page: '596', name: 'Al Alaq'},
+                                {page: '597', name: 'Al Qodr'},
+                                {page: '597', name: 'Al Bayyinah'},
+                                {page: '598', name: 'Az Zilzalah'},
+                                {page: '598', name: 'Al Adiyat'},
+                                {page: '599', name: 'Al Qoriah'},
+                                {page: '599', name: 'At Takatsur'},
+                                {page: '600', name: 'At Ashr'},
+                                {page: '600', name: 'Al Humazah'},
+                                {page: '600', name: 'Al Fiil'},
+                                {page: '601', name: 'Quroisy'},
+                                {page: '601', name: 'Al Maun'},
+                                {page: '601', name: 'Al Kautsar'},
+                                {page: '602', name: 'Al Kafirun'},
+                                {page: '602', name: 'An Nashr'},
+                                {page: '602', name: 'Al Lahab'},
+                                {page: '603', name: 'Al Ihklas'},
+                                {page: '603', name: 'Al Falaq'},
+                                {page: '603', name: 'An Naas'}
+                            ]
+                        }
+                    ]
+            }
+        },
+        methods: {
+            touchStart(touchEvent) {
+                if (touchEvent.changedTouches.length !== 1) { // We only care if one finger is used
+                    return;
+                }
+                const posXStart = touchEvent.changedTouches[0].clientX;
+                addEventListener('touchend', (touchEvent) => this.touchEnd(touchEvent, posXStart), {once: true});
+            },
+            touchEnd(touchEvent, posXStart) {
+                if (touchEvent.changedTouches.length !== 1) { // We only care if one finger is used
+                    return;
+                }
+                const posXEnd = touchEvent.changedTouches[0].clientX;
+                if (posXStart < posXEnd) {
+                    if (this.page === '0') {
+                        this.page = 1
+                    } else {
+                        this.page++
+                    }
+                } else if (posXStart > posXEnd) {
+                    if (this.page !== '0') {
+                        this.page--
+                    }
+                    if (this.page == 1) {
+                        this.page = '0'
+                    }
+                }
+            },
+            showDrawer() {
+                this.drawer = true
+            },
+            prev() {
+                let page = parseInt(this.page)
+                if (page < 677) {
+                    this.page = page+=1
+                }
+                console.log('ffff')
+            },
+            next() {
+                console.log('aaaaaa')
+                let page = parseInt(this.page)
+                if (page > 0) {
+                    this.page = page-=1
+                }
+            },
+            menu() {
+                this.drawer = true
+            }
+        },
+    })
+</script>
+</body>
+</html>
