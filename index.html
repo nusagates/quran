@@ -11,7 +11,6 @@
         }
 
         img {
-
         }
     </style>
 </head>
@@ -74,8 +73,8 @@
                         </v-list>
                     </v-navigation-drawer>
                 </div>
-                <img @click="drawer=!drawer" :src="'pages/Quran_Page_'+page+'.fbk'"/>
-                <v-bottom-navigation v-model="nav">
+                <v-img class="mb-3" width="width" :lazy-src="'pages/Quran_Page_'+page+'.fbk'" :src="'pages/Quran_Page_'+page+'.fbk'"/>
+                <v-bottom-navigation  absolute v-model="nav">
                     <v-btn @click="menu" value="drawer">
                         <v-icon>mdi-menu</v-icon>
                     </v-btn>
@@ -105,6 +104,7 @@
                 drawer: true,
                 group: null,
                 nav: null,
+                width: 0,
                 navigation:
                     [
                         {
@@ -268,10 +268,8 @@
                 if (page < 677) {
                     this.page = page+=1
                 }
-                console.log('ffff')
             },
             next() {
-                console.log('aaaaaa')
                 let page = parseInt(this.page)
                 if (page > 0) {
                     this.page = page-=1
@@ -281,6 +279,9 @@
                 this.drawer = true
             }
         },
+        mounted() {
+            this.width = screen.width -10
+        }
     })
 </script>
 </body>
