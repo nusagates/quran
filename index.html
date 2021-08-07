@@ -6,14 +6,12 @@
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <style>
-        #quran {
+        #container {
             height: 100vh;
-            text-align: center;
         }
 
         img {
-            height: 100%;
-            width: 100%
+
         }
     </style>
 </head>
@@ -21,7 +19,7 @@
 <div id="app">
     <v-app>
         <v-main>
-            <v-container @touchstart="touchStart" fluid>
+            <v-container @touchstart="touchStart" fluid id="container">
                 <div style="text-align: left">
                     <v-navigation-drawer
                             v-model="drawer"
